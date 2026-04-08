@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Delete Account — GreenThumb</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #3E7428;
+      --primary-dark: #2A5414;
+      --cream: #F6EFDD;
+      --light-green: #E8F5D0;
+      --text: #1a2e12;
+      --text-muted: #5a6e50;
+      --white: #ffffff;
+      --border: #d4dcc8;
+      --error: #c0392b;
+      --radius: 12px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .header {
+      width: 100%;
+      background: var(--primary-dark);
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .header svg {
+      width: 36px;
+      height: 36px;
+    }
+
+    .header h1 {
+      font-family: 'DM Serif Display', serif;
+      color: var(--cream);
+      font-size: 22px;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 520px;
+      padding: 32px 20px 48px;
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 32px 24px;
+      box-shadow: 0 2px 12px rgba(42, 84, 20, 0.08);
+    }
+
+    .card h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 24px;
+      font-weight: 400;
+      color: var(--primary-dark);
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .info-box {
+      background: var(--light-green);
+      border-left: 3px solid var(--primary);
+      border-radius: 0 8px 8px 0;
+      padding: 16px;
+      margin-bottom: 24px;
+    }
+
+    .info-box h3 {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--primary-dark);
+      margin-bottom: 8px;
+    }
+
+    .info-box ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .info-box ul li {
+      font-size: 13px;
+      color: var(--text-muted);
+      padding: 3px 0;
+      padding-left: 16px;
+      position: relative;
+    }
+
+    .info-box ul li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+      font-weight: bold;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    input[type="email"],
+    textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      color: var(--text);
+      background: var(--white);
+      transition: border-color 0.2s;
+      outline: none;
+    }
+
+    input[type="email"]:focus,
+    textarea:focus {
+      border-color: var(--primary);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin: 20px 0 24px;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+      accent-color: var(--primary);
+      flex-shrink: 0;
+    }
+
+    .checkbox-group label {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--text-muted);
+      line-height: 1.5;
+      cursor: pointer;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-danger {
+      background: var(--error);
+      color: var(--white);
+    }
+
+    .btn-danger:hover {
+      background: #a93226;
+    }
+
+    .btn-danger:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+
+    .success-message {
+      display: none;
+      text-align: center;
+      padding: 24px;
+    }
+
+    .success-message .checkmark {
+      width: 56px;
+      height: 56px;
+      background: var(--light-green);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+    }
+
+    .success-message .checkmark svg {
+      width: 28px;
+      height: 28px;
+      color: var(--primary);
+    }
+
+    .success-message h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 20px;
+      color: var(--primary-dark);
+      margin-bottom: 8px;
+    }
+
+    .success-message p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 0;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 24px 20px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .footer a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="18" cy="18" r="17" fill="#F6EFDD" stroke="#F6EFDD" stroke-width="2"/>
+      <path d="M18 8c-1.5 3-5 5-5 10s3 10 5 10 5-5 5-10-3.5-7-5-10z" fill="#3E7428" opacity="0.7"/>
+      <path d="M12 14c2 1.5 4 5 6 5s4-3.5 6-5c-2 2-4 8-6 8s-4-6-6-8z" fill="#2A5414" opacity="0.5"/>
+      <circle cx="18" cy="18" r="2.5" fill="#2A5414"/>
+    </svg>
+    <h1>GreenThumb</h1>
+  </div>
+
+  <div class="container">
+    <div class="card">
+      <div id="formView">
+        <h2>Delete Your Account</h2>
+        <p>We're sorry to see you go. Submitting this form will request the permanent deletion of your GreenThumb account and all associated data.</p>
+
+        <div class="info-box">
+          <h3>What will be deleted:</h3>
+          <ul>
+            <li>Your profile and account information</li>
+            <li>Your plant collection and care history</li>
+            <li>AI advisor conversation history</li>
+            <li>Community posts, comments, and likes</li>
+            <li>Watering schedules and calendar events</li>
+            <li>Any active Pro subscription will be cancelled</li>
+          </ul>
+        </div>
+
+        <form id="deleteForm" onsubmit="handleSubmit(event)">
+          <div class="form-group">
+            <label for="email">Email address associated with your account</label>
+            <input type="email" id="email" name="email" required placeholder="your@email.com">
+          </div>
+
+          <div class="form-group">
+            <label for="reason">Reason for leaving (optional)</label>
+            <textarea id="reason" name="reason" placeholder="Help us improve GreenThumb..."></textarea>
+          </div>
+
+          <div class="checkbox-group">
+            <input type="checkbox" id="confirm" required>
+            <label for="confirm">I understand that this action is permanent and all my data will be deleted within 30 days. This cannot be undone.</label>
+          </div>
+
+          <button type="submit" class="btn btn-danger" id="submitBtn">Request Account Deletion</button>
+        </form>
+      </div>
+
+      <div class="success-message" id="successView">
+        <div class="checkmark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+        <h3>Request Received</h3>
+        <p>We've received your account deletion request. Your data will be permanently deleted within 30 days. You'll receive a confirmation email once the process is complete.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>&copy; 2026 GreenThumb &middot; <a href="mailto:green.thumb.app.info@gmail.com">support@greenthumb.app</a></p>
+  </div>
+
+  <script>
+    function handleSubmit(e) {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const reason = document.getElementById('reason').value;
+      const btn = document.getElementById('submitBtn');
+      
+      btn.disabled = true;
+      btn.textContent = 'Submitting...';
+
+      // Simulate submission (replace with actual API call)
+      setTimeout(() => {
+        document.getElementById('formView').style.display = 'none';
+        document.getElementById('successView').style.display = 'block';
+      }, 1500);
+    }
+  </script>
+
+</body>
+</html>
