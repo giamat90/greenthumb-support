@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Delete Account — GreenThumb</title>
+  <title>Contact — GreenThumb</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -18,7 +18,6 @@
       --text-muted: #666666;
       --white: #ffffff;
       --border: #E8DFC8;
-      --error: #D32F2F;
       --radius: 12px;
     }
 
@@ -42,11 +41,6 @@
       align-items: center;
       justify-content: center;
       gap: 12px;
-    }
-
-    .header svg {
-      width: 36px;
-      height: 36px;
     }
 
     .header h1 {
@@ -85,42 +79,6 @@
       margin-bottom: 20px;
     }
 
-    .info-box {
-      background: var(--light-green);
-      border-left: 3px solid var(--primary);
-      border-radius: 0 8px 8px 0;
-      padding: 16px;
-      margin-bottom: 24px;
-    }
-
-    .info-box h3 {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--primary-dark);
-      margin-bottom: 8px;
-    }
-
-    .info-box ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    .info-box ul li {
-      font-size: 13px;
-      color: var(--text-muted);
-      padding: 3px 0;
-      padding-left: 16px;
-      position: relative;
-    }
-
-    .info-box ul li::before {
-      content: '•';
-      position: absolute;
-      left: 0;
-      color: var(--primary);
-      font-weight: bold;
-    }
-
     .form-group {
       margin-bottom: 16px;
     }
@@ -134,6 +92,7 @@
     }
 
     input[type="email"],
+    input[type="text"],
     textarea {
       width: 100%;
       padding: 12px 14px;
@@ -148,36 +107,14 @@
     }
 
     input[type="email"]:focus,
+    input[type="text"]:focus,
     textarea:focus {
       border-color: var(--primary);
     }
 
     textarea {
       resize: vertical;
-      min-height: 80px;
-    }
-
-    .checkbox-group {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      margin: 20px 0 24px;
-    }
-
-    .checkbox-group input[type="checkbox"] {
-      width: 18px;
-      height: 18px;
-      margin-top: 2px;
-      accent-color: var(--primary);
-      flex-shrink: 0;
-    }
-
-    .checkbox-group label {
-      font-size: 13px;
-      font-weight: 400;
-      color: var(--text-muted);
-      line-height: 1.5;
-      cursor: pointer;
+      min-height: 120px;
     }
 
     .btn {
@@ -190,18 +127,19 @@
       font-weight: 600;
       cursor: pointer;
       transition: all 0.2s;
+      margin-top: 8px;
     }
 
-    .btn-danger {
-      background: var(--error);
+    .btn-primary {
+      background: var(--primary);
       color: var(--white);
     }
 
-    .btn-danger:hover {
-      background: #a93226;
+    .btn-primary:hover {
+      background: var(--primary-dark);
     }
 
-    .btn-danger:disabled {
+    .btn-primary:disabled {
       background: #ccc;
       cursor: not-allowed;
     }
@@ -266,38 +204,28 @@
   <div class="container">
     <div class="card">
       <div id="formView">
-        <h2>Delete Your Account</h2>
-        <p>We're sorry to see you go. Submitting this form will request the permanent deletion of your GreenThumb account and all associated data.</p>
+        <h2>Contact Us</h2>
+        <p>Have a question or need help with GreenThumb? Send us a message and we'll get back to you as soon as possible.</p>
 
-        <div class="info-box">
-          <h3>What will be deleted:</h3>
-          <ul>
-            <li>Your profile and account information</li>
-            <li>Your plant collection and care history</li>
-            <li>AI advisor conversation history</li>
-            <li>Community posts, comments, and likes</li>
-            <li>Watering schedules and calendar events</li>
-            <li>Any active Pro subscription will be cancelled</li>
-          </ul>
-        </div>
-
-        <form id="deleteForm" onsubmit="handleSubmit(event)">
+        <form id="contactForm" onsubmit="handleSubmit(event)">
           <div class="form-group">
-            <label for="email">Email address associated with your account</label>
+            <label for="name">Your name</label>
+            <input type="text" id="name" name="name" required placeholder="Jane Doe">
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email address</label>
             <input type="email" id="email" name="email" required placeholder="your@email.com">
           </div>
 
           <div class="form-group">
-            <label for="reason">Reason for leaving (optional)</label>
-            <textarea id="reason" name="reason" placeholder="Help us improve GreenThumb..."></textarea>
+            <label for="message">Message</label>
+            <textarea id="message" name="message" required placeholder="How can we help?"></textarea>
           </div>
 
-          <div class="checkbox-group">
-            <input type="checkbox" id="confirm" required>
-            <label for="confirm">I understand that this action is permanent and all my data will be deleted within 30 days. This cannot be undone.</label>
-          </div>
+          <input type="hidden" name="type" value="contact">
 
-          <button type="submit" class="btn btn-danger" id="submitBtn">Request Account Deletion</button>
+          <button type="submit" class="btn btn-primary" id="submitBtn">Send Message</button>
         </form>
       </div>
 
@@ -307,14 +235,14 @@
             <polyline points="20 6 9 17 4 12"></polyline>
           </svg>
         </div>
-        <h3>Request Received</h3>
-        <p>We've received your account deletion request. Your data will be permanently deleted within 30 days. You'll receive a confirmation email once the process is complete.</p>
+        <h3>Message Sent</h3>
+        <p>Thanks for reaching out! We'll get back to you as soon as possible.</p>
       </div>
     </div>
   </div>
 
   <div class="footer">
-    <p>&copy; 2026 GreenThumb &middot; <a href="contact.html">Contact</a> &middot; <a href="privacy-policy.html">Privacy Policy</a></p>
+    <p>&copy; 2026 GreenThumb &middot; <a href="privacy-policy.html">Privacy Policy</a> &middot; <a href="delete-account.html">Delete Account</a></p>
   </div>
 
   <script>
@@ -322,14 +250,16 @@
       e.preventDefault();
       const btn = document.getElementById('submitBtn');
       btn.disabled = true;
-      btn.textContent = 'Submitting...';
+      btn.textContent = 'Sending...';
 
       const res = await fetch('https://formspree.io/f/xgodvgaz', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          type: 'contact',
+          name: document.getElementById('name').value,
           email: document.getElementById('email').value,
-          reason: document.getElementById('reason').value,
+          message: document.getElementById('message').value,
         }),
       });
 
@@ -338,7 +268,7 @@
         document.getElementById('successView').style.display = 'block';
       } else {
         btn.disabled = false;
-        btn.textContent = 'Request Account Deletion';
+        btn.textContent = 'Send Message';
         alert('Something went wrong. Please try again.');
       }
     }
