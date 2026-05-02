@@ -293,11 +293,11 @@
           </div>
 
           <div class="checkbox-group">
-            <input type="checkbox" id="confirm" required>
+            <input type="checkbox" id="confirm" onchange="toggleSubmit()">
             <label for="confirm">I understand that this action is permanent and all my data will be deleted within 30 days. This cannot be undone.</label>
           </div>
 
-          <button type="submit" class="btn btn-danger" id="submitBtn">Request Account Deletion</button>
+          <button type="submit" class="btn btn-danger" id="submitBtn" disabled>Request Account Deletion</button>
         </form>
       </div>
 
@@ -318,6 +318,10 @@
   </div>
 
   <script>
+    function toggleSubmit() {
+      document.getElementById('submitBtn').disabled = !document.getElementById('confirm').checked;
+    }
+
     async function handleSubmit(e) {
       e.preventDefault();
       const btn = document.getElementById('submitBtn');
