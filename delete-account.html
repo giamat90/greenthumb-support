@@ -314,24 +314,33 @@
   </div>
 
   <div class="footer">
-    <p>&copy; 2026 GreenThumb &middot; <a href="mailto:green.thumb.app.info@gmail.com">support@greenthumb.app</a></p>
+    <p>&copy; 2026 GreenThumb &middot; <a href="privacy-policy.html">Privacy Policy</a></p>
   </div>
 
   <script>
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
       e.preventDefault();
-      const email = document.getElementById('email').value;
-      const reason = document.getElementById('reason').value;
       const btn = document.getElementById('submitBtn');
-      
       btn.disabled = true;
       btn.textContent = 'Submitting...';
 
-      // Simulate submission (replace with actual API call)
-      setTimeout(() => {
+      const res = await fetch('https://formspree.io/f/xgodvgaz', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: document.getElementById('email').value,
+          reason: document.getElementById('reason').value,
+        }),
+      });
+
+      if (res.ok) {
         document.getElementById('formView').style.display = 'none';
         document.getElementById('successView').style.display = 'block';
-      }, 1500);
+      } else {
+        btn.disabled = false;
+        btn.textContent = 'Request Account Deletion';
+        alert('Something went wrong. Please try again.');
+      }
     }
   </script>
 
